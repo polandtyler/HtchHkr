@@ -385,7 +385,7 @@
                                                     </segments>
                                                     <color key="tintColor" red="0.84829920530319214" green="0.14767193794250488" blue="0.11754285544157028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </segmentedControl>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G9r-ud-yKS" customClass="RoundedCornerTextField" customModule="HtchHkr" customModuleProvider="target">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G9r-ud-yKS" customClass="RoundedCornerTextField" customModule="HtchHkr" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="224.66666666666666" width="382" height="59.999999999999972"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="60" id="cn2-n8-0cW"/>
@@ -394,7 +394,7 @@
                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="30"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w7P-dG-6C9" customClass="RoundedCornerTextField" customModule="HtchHkr" customModuleProvider="target">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w7P-dG-6C9" customClass="RoundedCornerTextField" customModule="HtchHkr" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="304.66666666666663" width="382" height="60.000000000000057"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="60" id="4vr-NA-mai"/>
