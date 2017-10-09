@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		05241E3D3BA91D276A0C13DF /* Pods_HtchHkr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4083CA24022A40DB1211BFCF /* Pods_HtchHkr.framework */; };
 		2F03F5821F85D0A100F458A9 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F03F5811F85D0A100F458A9 /* LoginVC.swift */; };
-		2F03F5841F85D38400F458A9 /* RoundedCornerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F03F5831F85D38400F458A9 /* RoundedCornerTextField.swift */; };
 		2F0A27271F736D7200D33228 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0A27261F736D7200D33228 /* AppDelegate.swift */; };
 		2F0A27291F736D7200D33228 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0A27281F736D7200D33228 /* HomeVC.swift */; };
 		2F0A272C1F736D7200D33228 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F0A272A1F736D7200D33228 /* Main.storyboard */; };
@@ -24,13 +23,13 @@
 		2FBD752C1F83485100522B1A /* CenterVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD752B1F83485100522B1A /* CenterVCDelegate.swift */; };
 		2FBD752F1F835A1D00522B1A /* UIViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD752E1F835A1D00522B1A /* UIViewExt.swift */; };
 		2FD5CA241F81E674000B9447 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD5CA231F81E674000B9447 /* GradientView.swift */; };
+		3BE8A20E1F8817C000B28C05 /* RoundedCornerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8A20D1F8817C000B28C05 /* RoundedCornerTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		13AA2DA9284091FB3D5D4518 /* Pods-HtchHkr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HtchHkr.release.xcconfig"; path = "Pods/Target Support Files/Pods-HtchHkr/Pods-HtchHkr.release.xcconfig"; sourceTree = "<group>"; };
 		14D9191CD66374A6DC1DD082 /* Pods-HtchHkr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HtchHkr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HtchHkr/Pods-HtchHkr.debug.xcconfig"; sourceTree = "<group>"; };
 		2F03F5811F85D0A100F458A9 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		2F03F5831F85D38400F458A9 /* RoundedCornerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerTextField.swift; sourceTree = "<group>"; };
 		2F0A27231F736D7200D33228 /* HtchHkr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HtchHkr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F0A27261F736D7200D33228 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2F0A27281F736D7200D33228 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -47,6 +46,7 @@
 		2FBD752B1F83485100522B1A /* CenterVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterVCDelegate.swift; sourceTree = "<group>"; };
 		2FBD752E1F835A1D00522B1A /* UIViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExt.swift; sourceTree = "<group>"; };
 		2FD5CA231F81E674000B9447 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		3BE8A20D1F8817C000B28C05 /* RoundedCornerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerTextField.swift; sourceTree = "<group>"; };
 		4083CA24022A40DB1211BFCF /* Pods_HtchHkr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HtchHkr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -137,7 +137,7 @@
 				2FBD75201F81EF9000522B1A /* RoundedShadowView.swift */,
 				2FBD75221F81F08F00522B1A /* CircleView.swift */,
 				2FBD75241F81F2C100522B1A /* RoundedShadowButton.swift */,
-				2F03F5831F85D38400F458A9 /* RoundedCornerTextField.swift */,
+				3BE8A20D1F8817C000B28C05 /* RoundedCornerTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -308,7 +308,7 @@
 				2F0A27291F736D7200D33228 /* HomeVC.swift in Sources */,
 				2FBD751F1F81EE8A00522B1A /* RoundImageView.swift in Sources */,
 				2FBD75211F81EF9000522B1A /* RoundedShadowView.swift in Sources */,
-				2F03F5841F85D38400F458A9 /* RoundedCornerTextField.swift in Sources */,
+				3BE8A20E1F8817C000B28C05 /* RoundedCornerTextField.swift in Sources */,
 				2F0A27271F736D7200D33228 /* AppDelegate.swift in Sources */,
 				2FD5CA241F81E674000B9447 /* GradientView.swift in Sources */,
 			);
