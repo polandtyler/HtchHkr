@@ -23,6 +23,7 @@
 		2FBD75291F8345A900522B1A /* ContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD75281F8345A900522B1A /* ContainerVC.swift */; };
 		2FBD752C1F83485100522B1A /* CenterVCDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD752B1F83485100522B1A /* CenterVCDelegate.swift */; };
 		2FBD752F1F835A1D00522B1A /* UIViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD752E1F835A1D00522B1A /* UIViewExt.swift */; };
+		2FCD05621F8CCF8B00EC59C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F1F2BF51F8CCEDC001D486D /* GoogleService-Info.plist */; };
 		2FD5CA241F81E674000B9447 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD5CA231F81E674000B9447 /* GradientView.swift */; };
 		3BE8A20E1F8817C000B28C05 /* RoundedCornerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8A20D1F8817C000B28C05 /* RoundedCornerTextField.swift */; };
 /* End PBXBuildFile section */
@@ -39,6 +40,7 @@
 		2F0A27301F736D7200D33228 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F0A27321F736D7200D33228 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F1F2BF11F8CC393001D486D /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		2F1F2BF51F8CCEDC001D486D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2FBD751E1F81EE8A00522B1A /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		2FBD75201F81EF9000522B1A /* RoundedShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowView.swift; sourceTree = "<group>"; };
 		2FBD75221F81F08F00522B1A /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
@@ -48,7 +50,6 @@
 		2FBD752B1F83485100522B1A /* CenterVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterVCDelegate.swift; sourceTree = "<group>"; };
 		2FBD752E1F835A1D00522B1A /* UIViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExt.swift; sourceTree = "<group>"; };
 		2FD5CA231F81E674000B9447 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		3B2C27A11F8C18EC000DD61B /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3BE8A20D1F8817C000B28C05 /* RoundedCornerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerTextField.swift; sourceTree = "<group>"; };
 		4083CA24022A40DB1211BFCF /* Pods_HtchHkr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HtchHkr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -95,6 +96,7 @@
 		2F0A27251F736D7200D33228 /* HtchHkr */ = {
 			isa = PBXGroup;
 			children = (
+				2F1F2BF51F8CCEDC001D486D /* GoogleService-Info.plist */,
 				2F1F2BF01F8CC37E001D486D /* Services */,
 				2FBD752D1F835A0800522B1A /* Extensions */,
 				2FBD752A1F83484400522B1A /* Protocols */,
@@ -106,7 +108,6 @@
 				2F0A272D1F736D7200D33228 /* Assets.xcassets */,
 				2F0A272F1F736D7200D33228 /* LaunchScreen.storyboard */,
 				2F0A27321F736D7200D33228 /* Info.plist */,
-				3B2C27A11F8C18EC000DD61B /* GoogleService-Info.plist */,
 			);
 			path = HtchHkr;
 			sourceTree = "<group>";
@@ -237,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F0A27311F736D7200D33228 /* LaunchScreen.storyboard in Resources */,
+				2FCD05621F8CCF8B00EC59C9 /* GoogleService-Info.plist in Resources */,
 				2F0A272E1F736D7200D33228 /* Assets.xcassets in Resources */,
 				2F0A272C1F736D7200D33228 /* Main.storyboard in Resources */,
 			);
