@@ -15,6 +15,7 @@
 		2F0A272C1F736D7200D33228 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F0A272A1F736D7200D33228 /* Main.storyboard */; };
 		2F0A272E1F736D7200D33228 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F0A272D1F736D7200D33228 /* Assets.xcassets */; };
 		2F0A27311F736D7200D33228 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F0A272F1F736D7200D33228 /* LaunchScreen.storyboard */; };
+		2F1F2BF21F8CC393001D486D /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1F2BF11F8CC393001D486D /* DataService.swift */; };
 		2FBD751F1F81EE8A00522B1A /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD751E1F81EE8A00522B1A /* RoundImageView.swift */; };
 		2FBD75211F81EF9000522B1A /* RoundedShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD75201F81EF9000522B1A /* RoundedShadowView.swift */; };
 		2FBD75231F81F08F00522B1A /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD75221F81F08F00522B1A /* CircleView.swift */; };
@@ -38,6 +39,7 @@
 		2F0A272D1F736D7200D33228 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F0A27301F736D7200D33228 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F0A27321F736D7200D33228 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2F1F2BF11F8CC393001D486D /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		2FBD751E1F81EE8A00522B1A /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		2FBD75201F81EF9000522B1A /* RoundedShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowView.swift; sourceTree = "<group>"; };
 		2FBD75221F81F08F00522B1A /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 		2F0A27251F736D7200D33228 /* HtchHkr */ = {
 			isa = PBXGroup;
 			children = (
+				2F1F2BF01F8CC37E001D486D /* Services */,
 				2FBD752D1F835A0800522B1A /* Extensions */,
 				2FBD752A1F83484400522B1A /* Protocols */,
 				2FD5CA201F81E63B000B9447 /* Model */,
@@ -104,6 +107,14 @@
 				2F0A27321F736D7200D33228 /* Info.plist */,
 			);
 			path = HtchHkr;
+			sourceTree = "<group>";
+		};
+		2F1F2BF01F8CC37E001D486D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2F1F2BF11F8CC393001D486D /* DataService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		2FBD752A1F83484400522B1A /* Protocols */ = {
@@ -299,6 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2FBD752C1F83485100522B1A /* CenterVCDelegate.swift in Sources */,
+				2F1F2BF21F8CC393001D486D /* DataService.swift in Sources */,
 				2FBD75251F81F2C100522B1A /* RoundedShadowButton.swift in Sources */,
 				2F03F5821F85D0A100F458A9 /* LoginVC.swift in Sources */,
 				2FBD75271F83451F00522B1A /* LeftSidePanelVC.swift in Sources */,
