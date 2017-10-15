@@ -26,6 +26,7 @@
 		2FCD05621F8CCF8B00EC59C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F1F2BF51F8CCEDC001D486D /* GoogleService-Info.plist */; };
 		2FD5CA241F81E674000B9447 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD5CA231F81E674000B9447 /* GradientView.swift */; };
 		2FFEB3B91F92F6E800C3D6FA /* DriverAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFEB3B81F92F6E800C3D6FA /* DriverAnnotation.swift */; };
+		3B52A2631F8D13CA00E550E6 /* UpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B52A2621F8D13CA00E550E6 /* UpdateService.swift */; };
 		3BE8A20E1F8817C000B28C05 /* RoundedCornerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8A20D1F8817C000B28C05 /* RoundedCornerTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		2FBD752E1F835A1D00522B1A /* UIViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExt.swift; sourceTree = "<group>"; };
 		2FD5CA231F81E674000B9447 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		2FFEB3B81F92F6E800C3D6FA /* DriverAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverAnnotation.swift; sourceTree = "<group>"; };
+		3B52A2621F8D13CA00E550E6 /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
 		3BE8A20D1F8817C000B28C05 /* RoundedCornerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerTextField.swift; sourceTree = "<group>"; };
 		4083CA24022A40DB1211BFCF /* Pods_HtchHkr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HtchHkr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				2F1F2BF11F8CC393001D486D /* DataService.swift */,
+				3B52A2621F8D13CA00E550E6 /* UpdateService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				2FBD75291F8345A900522B1A /* ContainerVC.swift in Sources */,
 				2FBD752F1F835A1D00522B1A /* UIViewExt.swift in Sources */,
 				2F0A27291F736D7200D33228 /* HomeVC.swift in Sources */,
+				3B52A2631F8D13CA00E550E6 /* UpdateService.swift in Sources */,
 				2FBD751F1F81EE8A00522B1A /* RoundImageView.swift in Sources */,
 				2FBD75211F81EF9000522B1A /* RoundedShadowView.swift in Sources */,
 				3BE8A20E1F8817C000B28C05 /* RoundedCornerTextField.swift in Sources */,
