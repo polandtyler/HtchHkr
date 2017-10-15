@@ -25,6 +25,7 @@
 		2FBD752F1F835A1D00522B1A /* UIViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD752E1F835A1D00522B1A /* UIViewExt.swift */; };
 		2FCD05621F8CCF8B00EC59C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F1F2BF51F8CCEDC001D486D /* GoogleService-Info.plist */; };
 		2FD5CA241F81E674000B9447 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD5CA231F81E674000B9447 /* GradientView.swift */; };
+		2FFEB3B91F92F6E800C3D6FA /* DriverAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFEB3B81F92F6E800C3D6FA /* DriverAnnotation.swift */; };
 		3BE8A20E1F8817C000B28C05 /* RoundedCornerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE8A20D1F8817C000B28C05 /* RoundedCornerTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		2FBD752B1F83485100522B1A /* CenterVCDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterVCDelegate.swift; sourceTree = "<group>"; };
 		2FBD752E1F835A1D00522B1A /* UIViewExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExt.swift; sourceTree = "<group>"; };
 		2FD5CA231F81E674000B9447 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		2FFEB3B81F92F6E800C3D6FA /* DriverAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverAnnotation.swift; sourceTree = "<group>"; };
 		3BE8A20D1F8817C000B28C05 /* RoundedCornerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerTextField.swift; sourceTree = "<group>"; };
 		4083CA24022A40DB1211BFCF /* Pods_HtchHkr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HtchHkr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -152,6 +154,7 @@
 				2FBD75221F81F08F00522B1A /* CircleView.swift */,
 				2FBD75241F81F2C100522B1A /* RoundedShadowButton.swift */,
 				3BE8A20D1F8817C000B28C05 /* RoundedCornerTextField.swift */,
+				2FFEB3B81F92F6E800C3D6FA /* DriverAnnotation.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				2F1F2BF21F8CC393001D486D /* DataService.swift in Sources */,
 				2FBD75251F81F2C100522B1A /* RoundedShadowButton.swift in Sources */,
 				2F03F5821F85D0A100F458A9 /* LoginVC.swift in Sources */,
+				2FFEB3B91F92F6E800C3D6FA /* DriverAnnotation.swift in Sources */,
 				2FBD75271F83451F00522B1A /* LeftSidePanelVC.swift in Sources */,
 				2FBD75231F81F08F00522B1A /* CircleView.swift in Sources */,
 				2FBD75291F8345A900522B1A /* ContainerVC.swift in Sources */,
