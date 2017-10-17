@@ -11,7 +11,16 @@ import UIKit
 import MapKit
 
 class DriverAnnotation: NSObject, MKAnnotation {
-    var coordinate: CLLocationCoordinate2D
+/* LEARNING NOTE:
+     So, Swift by default gives all vars a static type. since
+     `coordinate` needs obj-c interoperability, it needs to be
+     declared as a dynamic variable. sheeeeeeeesh.
+     
+     sidenote: this only hapens because of some
+     stuff that's happening inside of the CLLocationCoordinate
+     code
+*/
+    dynamic var coordinate: CLLocationCoordinate2D
     var key: String
     
     init(coordinate: CLLocationCoordinate2D, withKey key: String) {
