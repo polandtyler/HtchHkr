@@ -61,8 +61,10 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                             switch errorCode {
                             case .wrongPassword:
                                 print("Whoops! That was the wrong password.")
+                                self.authBtn.animateButton(shouldLoad: false, withMessage: nil)
                             default:
                                 print("An unexpected error occurred. Please try again.")
+                                self.authBtn.animateButton(shouldLoad: false, withMessage: nil)
                             }
                         }
                         
