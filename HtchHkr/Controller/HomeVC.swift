@@ -38,10 +38,11 @@ class HomeVC: UIViewController {
         mapView.delegate = self
         
         centerMapOnUserLocation()
+        centerMapBtn.isHidden = true
         
-        DataService.instance.REF_DRIVERS.observe(.value) { (snapshot) in
+        DataService.instance.REF_DRIVERS.observe(.value, with: { (snapshot) in
             self.loadDriverAnnotationsFromFB()
-        }
+        })
         
         self.view.addSubview(revealingSplashView)
         revealingSplashView.animationType = SplashAnimationType.heartBeat
@@ -100,6 +101,16 @@ class HomeVC: UIViewController {
                                     
                                     if !driverIsVisible {
                                         self.mapView.addAnnotation(annotation)
+                                    }
+                                }
+                            } else {
+                                for annotation in self.mapView.annotations {
+                                    if annotation.isKind(of: DriverAnnotation.self) {
+                                        if let annotation = annotation as? DriverAnnotation {
+                                            if annotation.key == driver.key {
+                                                self.mapView.removeAnnotation(annotation)
+                                            }
+                                        }
                                     }
                                 }
                             }
