@@ -15,6 +15,7 @@
 		2F0A272E1F736D7200D33228 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F0A272D1F736D7200D33228 /* Assets.xcassets */; };
 		2F0A27311F736D7200D33228 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F0A272F1F736D7200D33228 /* LaunchScreen.storyboard */; };
 		2F1F2BF21F8CC393001D486D /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1F2BF11F8CC393001D486D /* DataService.swift */; };
+		2FB2C0C21FC556260073A997 /* PassengerAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB2C0C11FC556260073A997 /* PassengerAnnotation.swift */; };
 		2FBD751F1F81EE8A00522B1A /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD751E1F81EE8A00522B1A /* RoundImageView.swift */; };
 		2FBD75211F81EF9000522B1A /* RoundedShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD75201F81EF9000522B1A /* RoundedShadowView.swift */; };
 		2FBD75231F81F08F00522B1A /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBD75221F81F08F00522B1A /* CircleView.swift */; };
@@ -43,6 +44,7 @@
 		2F0A27321F736D7200D33228 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F1F2BF11F8CC393001D486D /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		2F1F2BF51F8CCEDC001D486D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2FB2C0C11FC556260073A997 /* PassengerAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassengerAnnotation.swift; sourceTree = "<group>"; };
 		2FBD751E1F81EE8A00522B1A /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		2FBD75201F81EF9000522B1A /* RoundedShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowView.swift; sourceTree = "<group>"; };
 		2FBD75221F81F08F00522B1A /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				2FBD75241F81F2C100522B1A /* RoundedShadowButton.swift */,
 				3BE8A20D1F8817C000B28C05 /* RoundedCornerTextField.swift */,
 				2FFEB3B81F92F6E800C3D6FA /* DriverAnnotation.swift */,
+				2FB2C0C11FC556260073A997 /* PassengerAnnotation.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -268,7 +271,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6AEF5EBB3D6421583C3AD472 /* [CP] Copy Pods Resources */ = {
@@ -326,6 +329,7 @@
 				2FFEB3B91F92F6E800C3D6FA /* DriverAnnotation.swift in Sources */,
 				2FBD75271F83451F00522B1A /* LeftSidePanelVC.swift in Sources */,
 				2FBD75231F81F08F00522B1A /* CircleView.swift in Sources */,
+				2FB2C0C21FC556260073A997 /* PassengerAnnotation.swift in Sources */,
 				2FBD75291F8345A900522B1A /* ContainerVC.swift in Sources */,
 				2FBD752F1F835A1D00522B1A /* UIViewExt.swift in Sources */,
 				2F0A27291F736D7200D33228 /* HomeVC.swift in Sources */,
