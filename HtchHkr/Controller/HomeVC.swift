@@ -30,6 +30,8 @@ class HomeVC: UIViewController {
     
     var tableView = UITableView()
     
+    var matchingItems: [MKMapItem] = [MKMapItem]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -164,6 +166,27 @@ extension HomeVC: MKMapViewDelegate {
         centerMapBtn.fadeTo(alphaValue: 1.0, withDuration: 0.2)
     }
     
+    func performSearch() {
+        matchingItems.removeAll()
+        let request = MKLocalSearchRequest()
+        request.naturalLanguageQuery = destinationTxtField.text
+        request.region = mapView.region
+        
+        let search = MKLocalSearch(request: request)
+        
+        search.start { (response, error) in
+            if error != nil {
+                print(error.debugDescription)
+            } else if response?.mapItems.count == 0 {
+                print("No results found")
+            } else {
+                for mapItem in response!.mapItems {
+                    self.matchingItems.append(mapItem as MKMapItem)
+                }
+            }
+        }
+    }
+}
 
 extension HomeVC: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
