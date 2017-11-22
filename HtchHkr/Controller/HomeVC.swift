@@ -16,6 +16,7 @@ class HomeVC: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var actionBtn: RoundedShadowButton!
+    @IBOutlet weak var centerMapBtn: UIButton!
     
     var delegate: CenterVCDelegate?
     
@@ -61,6 +62,7 @@ class HomeVC: UIViewController {
     
     @IBAction func centerMapBtnWasPressed(_ sender: Any) {
         centerMapOnUserLocation()
+        centerMapBtn.fadeTo(alphaValue: 0.0, withDuration: 0.2)
     }
     
     func checkLocationAuthStatus() {
@@ -135,11 +137,15 @@ extension HomeVC: MKMapViewDelegate {
             let identifier = "driver"
             var view: MKAnnotationView
             view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            view.image = #imageLiteral(resourceName: "driverAnnotation")
+            view.image = UIImage(named: "driverAnnotation")
             return view
         } else {
             return nil
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        centerMapBtn.fadeTo(alphaValue: 1.0, withDuration: 0.2)
     }
 }
 
