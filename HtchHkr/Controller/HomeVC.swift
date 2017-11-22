@@ -182,6 +182,7 @@ extension HomeVC: MKMapViewDelegate {
             } else {
                 for mapItem in response!.mapItems {
                     self.matchingItems.append(mapItem as MKMapItem)
+                    self.tableView.reloadData()
                 }
             }
         }
@@ -212,7 +213,7 @@ extension HomeVC: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == destinationTxtField {
-            //perform search
+            performSearch()
             view.endEditing(true)
         }
         return true
@@ -230,6 +231,8 @@ extension HomeVC: UITextFieldDelegate {
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        matchingItems = []
+        tableView.reloadData()
         centerMapOnUserLocation()
         return true
     }
@@ -255,7 +258,11 @@ extension HomeVC: UITextFieldDelegate {
 
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "locationCell")
+        let mapItem = matchingItems[indexPath.row]
+        cell.textLabel?.text = mapItem.name
+        cell.detailTextLabel?.text = mapItem.placemark.title
+        return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
