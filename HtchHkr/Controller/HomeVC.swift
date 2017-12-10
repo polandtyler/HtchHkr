@@ -49,7 +49,7 @@ class HomeVC: UIViewController {
         destinationTxtField.delegate = self
 
         centerMapOnUserLocation()
-        centerMapBtn.isHidden = true
+        centerMapBtn.isHidden = false
 
         DataService.instance.REF_DRIVERS.observe(.value, with: { (snapshot) in
             self.loadDriverAnnotationsFromFB()
