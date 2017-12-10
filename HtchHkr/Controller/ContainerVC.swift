@@ -76,6 +76,7 @@ class ContainerVC: UIViewController {
     }
 }
 
+// MARK: CenterVCDelegate
 extension ContainerVC: CenterVCDelegate {
     func toggleLeftPanel() {
         let notAlreadyExpanded = (currentState != .leftPanelExpanded)
@@ -172,6 +173,7 @@ extension ContainerVC: CenterVCDelegate {
     }
 }
 
+// MARK: UIStoryboard Extension
 private extension UIStoryboard {
     class func mainStoryboard() -> UIStoryboard {
         return UIStoryboard(name: "Main", bundle: Bundle.main)

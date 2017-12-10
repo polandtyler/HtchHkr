@@ -33,6 +33,8 @@ class HomeVC: UIViewController {
     var tableView = UITableView()
 
     var matchingItems: [MKMapItem] = [MKMapItem]()
+    
+    var selectedItemPlacemark: MKPlacemark = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,6 +140,7 @@ class HomeVC: UIViewController {
     }
 }
 
+// MARK: CLLocationManagerDelegate
 extension HomeVC: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedAlways {
@@ -148,6 +151,7 @@ extension HomeVC: CLLocationManagerDelegate {
     }
 }
 
+// MARK: MKMapViewDelegate
 extension HomeVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         UpdateService.instance.updateUserLocation(withCoordinate: userLocation.coordinate)
@@ -197,8 +201,13 @@ extension HomeVC: MKMapViewDelegate {
             }
         }
     }
+
+    func dropPin(for placemark: MKPlacemark) {
+        
+    }
 }
 
+// MARK: UITextFieldDelegate
 extension HomeVC: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == destinationTxtField {
@@ -266,6 +275,7 @@ extension HomeVC: UITextFieldDelegate {
     }
 }
 
+// MARK: TableView
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "locationCell")
