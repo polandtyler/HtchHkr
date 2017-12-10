@@ -98,9 +98,8 @@ class LeftSidePanelVC: UIViewController {
                         self.userAccountTypeLbl.text = "DRIVER"
                         self.pickupModeSwitch.isHidden = false
 
-                        if let switchStatus = snap.childSnapshot(forPath: "isPickupModeEnabled").value as? Bool {
-                            self.pickupModeSwitch.isOn = switchStatus
-                        }
+                        let switchStatus = snap.childSnapshot(forPath: "isPickupModeEnabled").value as! Bool
+                        self.pickupModeSwitch.isOn = switchStatus
                         self.pickupModeLbl.isHidden = false
                     }
                 }

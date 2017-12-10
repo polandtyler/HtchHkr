@@ -34,12 +34,10 @@ class HomeVC: UIViewController {
 
     var matchingItems: [MKMapItem] = [MKMapItem]()
     
-    var selectedItemPlacemark: MKPlacemark = nil
+    var selectedItemPlacemark: MKPlacemark? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.currentUser = (Auth.auth().currentUser?.uid)!
 
         manager = CLLocationManager()
         manager?.delegate = self
@@ -53,7 +51,7 @@ class HomeVC: UIViewController {
         centerMapOnUserLocation()
         centerMapBtn.isHidden = true
 
-        DataService.instance.REF_DRIVERS.observe(.value, with: { (_) in
+        DataService.instance.REF_DRIVERS.observe(.value, with: { (snapshot) in
             self.loadDriverAnnotationsFromFB()
         })
 
@@ -94,7 +92,7 @@ class HomeVC: UIViewController {
                     if driver.hasChild("userIsDriver") {
                         if driver.hasChild("coordinate") {
                             if driver.childSnapshot(forPath: "isPickupModeEnabled").value as? Bool == true {
-                                if let driverDict = driver.value as? [String: AnyObject] {
+                                if let driverDict = driver.value as? Dictionary<String, AnyObject> {
                                     let coordinateArray = driverDict["coordinate"] as! NSArray
                                     let driverCoordinate = CLLocationCoordinate2D(latitude: coordinateArray[0] as! CLLocationDegrees, longitude: coordinateArray[1] as! CLLocationDegrees)
 
@@ -203,7 +201,17 @@ extension HomeVC: MKMapViewDelegate {
     }
 
     func dropPin(for placemark: MKPlacemark) {
+        selectedItemPlacemark = placemark
         
+        for annotation in mapView.annotations {
+            if annotation.isKind(of: MKPointAnnotation.self) {
+                mapView.removeAnnotation(annotation)
+            }
+        }
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        mapView.addAnnotation(annotation)
     }
 }
 
@@ -264,7 +272,7 @@ extension HomeVC: UITextFieldDelegate {
         } else {
             UIView.animate(withDuration: 0.2, animations: {
                 self.tableView.frame = CGRect(x: 20, y: 180, width: self.view.frame.width - 40, height: self.view.frame.height - 170)
-            }, completion: { (_) in
+            }, completion: { (finished) in
                 for subview in self.view.subviews {
                     if subview.tag == 18 {
                         subview.removeFromSuperview()
@@ -296,14 +304,16 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let passengerCoordinate = manager?.location?.coordinate
-        let passengerAnnotation = PassengerAnnotation(coordinate: passengerCoordinate!, key: currentUser)
+        let passengerAnnotation = PassengerAnnotation(coordinate: passengerCoordinate!, key: (Auth.auth().currentUser?.uid)!)
         mapView.addAnnotation(passengerAnnotation)
 
         destinationTxtField.text = tableView.cellForRow(at: indexPath)?.textLabel?.text
 
         let selectedMapItem = matchingItems[indexPath.row]
 
-        DataService.instance.REF_USERS.child(currentUser).updateChildValues(["tripCoordinate": [selectedMapItem.placemark.coordinate.latitude, selectedMapItem.placemark.coordinate.longitude]])
+        DataService.instance.REF_USERS.child((Auth.auth().currentUser?.uid)!).updateChildValues(["tripCoordinate": [selectedMapItem.placemark.coordinate.latitude, selectedMapItem.placemark.coordinate.longitude]])
+        
+        dropPin(for: selectedMapItem.placemark)
 
         print("selected")
         animateTableView(shouldShow: false)

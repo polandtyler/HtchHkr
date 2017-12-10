@@ -36,7 +36,7 @@ class DataService {
         return _REF_TRIPS
     }
 
-    func createFirebaseDBUser(uid: String, userData: [String: Any], isDriver: Bool) {
+    func createFirebaseDBUser(uid: String, userData: Dictionary<String, Any>, isDriver: Bool) {
         if isDriver {
             REF_DRIVERS.child(uid).updateChildValues(userData)
         } else {
