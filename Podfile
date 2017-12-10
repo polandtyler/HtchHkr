@@ -10,5 +10,6 @@ target 'HtchHkr' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'RevealingSplashView'
+  pod 'SwiftLint'
 
 end

@@ -13,7 +13,7 @@ import MapKit
 
 class UpdateService {
     static var instance  = UpdateService()
-    
+
     func updateUserLocation(withCoordinate coordinate: CLLocationCoordinate2D) {
         DataService.instance.REF_USERS.observeSingleEvent(of: .value, with: { (snapshot) in
             if let userSnapshot = snapshot.children.allObjects as? [DataSnapshot] {
@@ -25,7 +25,7 @@ class UpdateService {
             }
         })
     }
-    
+
     func updateDriverLocation(withCoordinate coordinate: CLLocationCoordinate2D) {
         DataService.instance.REF_DRIVERS.observeSingleEvent(of: .value, with: { (snapshot) in
             if let driverSnapshot = snapshot.children.allObjects as? [DataSnapshot] {

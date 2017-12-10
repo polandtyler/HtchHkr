@@ -9,13 +9,13 @@
 import UIKit
 
 class GradientView: UIView {
-    
+
     let gradient = CAGradientLayer()
-    
+
     override func awakeFromNib() {
         setupGradientView()
     }
-    
+
     func setupGradientView() {
         gradient.frame = self.bounds
         gradient.colors = [UIColor.white.cgColor, UIColor.init(white: 1.0, alpha: 0.0).cgColor]

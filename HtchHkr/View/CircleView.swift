@@ -15,7 +15,7 @@ class CircleView: UIView {
             setupView()
         }
     }
-    
+
     override func awakeFromNib() {
         setupView()
     }
@@ -25,5 +25,5 @@ class CircleView: UIView {
         self.layer.borderWidth = 1.5
         self.layer.borderColor = borderColor?.cgColor
     }
-    
+
 }

@@ -10,9 +10,9 @@ import UIKit
 import Firebase
 
 class LeftSidePanelVC: UIViewController {
-    
+
     let appDelegate = AppDelegate.getAppDelegate()
-    
+
     let currentUserId = Auth.auth().currentUser?.uid
 
     @IBOutlet weak var userEmailLbl: UILabel!
@@ -21,20 +21,20 @@ class LeftSidePanelVC: UIViewController {
     @IBOutlet weak var loginOutBtn: UIButton!
     @IBOutlet weak var pickupModeSwitch: UISwitch!
     @IBOutlet weak var pickupModeLbl: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         pickupModeSwitch.isOn = false
         pickupModeSwitch.isHidden = true
         pickupModeLbl.isHidden = true
-        
+
         observePassengersAndDrivers()
-        
+
         if Auth.auth().currentUser == nil {
             userEmailLbl.text = ""
             userAccountTypeLbl.text = ""
@@ -47,7 +47,7 @@ class LeftSidePanelVC: UIViewController {
             loginOutBtn.setTitle("Logout", for: .normal)
         }
     }
-    
+
     @IBAction func signUpLoginBtnPressed(_ sender: Any) {
         if Auth.auth().currentUser == nil {
             let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -62,12 +62,12 @@ class LeftSidePanelVC: UIViewController {
                 pickupModeLbl.text = ""
                 pickupModeSwitch.isHidden = true
                 loginOutBtn.setTitle("Sign Up / Login", for: .normal)
-            } catch (let error) {
+            } catch let error {
                 print(error)
             }
         }
     }
-    
+
     @IBAction func switchWasToggled(_ sender: Any) {
         if pickupModeSwitch.isOn {
             pickupModeLbl.text = "PICKUP MODE ENABLED"
@@ -79,7 +79,7 @@ class LeftSidePanelVC: UIViewController {
              DataService.instance.REF_DRIVERS.child(currentUserId!).updateChildValues(["isPickupModeEnabled": false])
         }
     }
-    
+
     func observePassengersAndDrivers() {
         DataService.instance.REF_USERS.observeSingleEvent(of: .value, with: { (snapshot) in
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
@@ -90,16 +90,17 @@ class LeftSidePanelVC: UIViewController {
                 }
             }
         })
-        
+
         DataService.instance.REF_DRIVERS.observeSingleEvent(of: .value, with: { (snapshot) in
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                 for snap in snapshot {
                     if snap.key == Auth.auth().currentUser?.uid {
                         self.userAccountTypeLbl.text = "DRIVER"
                         self.pickupModeSwitch.isHidden = false
-                        
-                        let switchStatus = snap.childSnapshot(forPath: "isPickupModeEnabled").value as! Bool
-                        self.pickupModeSwitch.isOn = switchStatus
+
+                        if let switchStatus = snap.childSnapshot(forPath: "isPickupModeEnabled").value as? Bool {
+                            self.pickupModeSwitch.isOn = switchStatus
+                        }
                         self.pickupModeLbl.isHidden = false
                     }
                 }

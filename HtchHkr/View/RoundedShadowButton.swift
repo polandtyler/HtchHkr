@@ -9,9 +9,9 @@
 import UIKit
 
 class RoundedShadowButton: UIButton {
-    
+
     var originalSize: CGRect?
-    
+
     override func awakeFromNib() {
         setupView()
     }
@@ -24,7 +24,7 @@ class RoundedShadowButton: UIButton {
         self.layer.shadowOpacity = 0.3
         self.layer.shadowOffset = CGSize.zero
     }
-    
+
     func animateButton(shouldLoad: Bool, withMessage message: String?) {
         let spinner = UIActivityIndicatorView()
         spinner.activityIndicatorViewStyle = .whiteLarge
@@ -32,7 +32,7 @@ class RoundedShadowButton: UIButton {
         spinner.alpha = 0.0
         spinner.hidesWhenStopped = true
         spinner.tag = 21
-        
+
         if shouldLoad {
             self.addSubview(spinner)
 
@@ -51,13 +51,13 @@ class RoundedShadowButton: UIButton {
             self.isUserInteractionEnabled = false
         } else {
             self.isUserInteractionEnabled = true
-            
+
             for subview in self.subviews {
                 if subview.tag == 21 {
                     subview.removeFromSuperview()
                 }
             }
-            
+
             UIView.animate(withDuration: 0.2, animations: {
                 self.layer.cornerRadius = 5.0
                 self.frame = self.originalSize!

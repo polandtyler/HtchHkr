@@ -19,61 +19,64 @@ class HomeVC: UIViewController {
     @IBOutlet weak var centerMapBtn: UIButton!
     @IBOutlet weak var destinationTxtField: UITextField!
     @IBOutlet weak var destinationCircle: CircleView!
-    
+
     var delegate: CenterVCDelegate?
-    
+
     var manager: CLLocationManager?
-    var currentUserId = Auth.auth().currentUser?.uid
-    
+
+    var currentUser = ""
+
     var regionRadius: CLLocationDistance = 1000
-    
+
     let revealingSplashView = RevealingSplashView(iconImage: UIImage(named: "launchScreenIcon")!, iconInitialSize: CGSize(width: 80, height: 80), backgroundColor: UIColor.white)
-    
+
     var tableView = UITableView()
-    
+
     var matchingItems: [MKMapItem] = [MKMapItem]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        self.currentUser = (Auth.auth().currentUser?.uid)!
+
         manager = CLLocationManager()
         manager?.delegate = self
         manager?.desiredAccuracy = kCLLocationAccuracyBest
-        
+
         checkLocationAuthStatus()
-        
+
         mapView.delegate = self
         destinationTxtField.delegate = self
-        
+
         centerMapOnUserLocation()
         centerMapBtn.isHidden = true
-        
-        DataService.instance.REF_DRIVERS.observe(.value, with: { (snapshot) in
+
+        DataService.instance.REF_DRIVERS.observe(.value, with: { (_) in
             self.loadDriverAnnotationsFromFB()
         })
-        
+
         self.view.addSubview(revealingSplashView)
         revealingSplashView.animationType = SplashAnimationType.heartBeat
         revealingSplashView.startAnimation()
-        
+
         revealingSplashView.heartAttack = true
-        
+
         loadDriverAnnotationsFromFB()
     }
 
     @IBAction func actionBtnPressed(_ sender: Any) {
         actionBtn.animateButton(shouldLoad: true, withMessage: nil)
     }
-    
+
     @IBAction func menuBtnPressed(_ sender: Any) {
         delegate?.toggleLeftPanel()
     }
-    
+
     @IBAction func centerMapBtnWasPressed(_ sender: Any) {
         centerMapOnUserLocation()
         centerMapBtn.fadeTo(alphaValue: 0.0, withDuration: 0.2)
     }
-    
+
     func checkLocationAuthStatus() {
         if CLLocationManager.authorizationStatus() == .authorizedAlways {
             manager?.startUpdatingLocation()
@@ -81,7 +84,7 @@ class HomeVC: UIViewController {
             manager?.requestAlwaysAuthorization()
         }
     }
-    
+
     func loadDriverAnnotationsFromFB() {
         DataService.instance.REF_DRIVERS.observeSingleEvent(of: .value, with: { (snapshot) in
             if let driverSnapshot = snapshot.children.allObjects as? [DataSnapshot] {
@@ -89,12 +92,12 @@ class HomeVC: UIViewController {
                     if driver.hasChild("userIsDriver") {
                         if driver.hasChild("coordinate") {
                             if driver.childSnapshot(forPath: "isPickupModeEnabled").value as? Bool == true {
-                                if let driverDict = driver.value as? Dictionary<String, AnyObject> {
+                                if let driverDict = driver.value as? [String: AnyObject] {
                                     let coordinateArray = driverDict["coordinate"] as! NSArray
                                     let driverCoordinate = CLLocationCoordinate2D(latitude: coordinateArray[0] as! CLLocationDegrees, longitude: coordinateArray[1] as! CLLocationDegrees)
-                                    
+
                                     let annotation = DriverAnnotation(coordinate: driverCoordinate, withKey: driver.key)
-                                    
+
                                     var driverIsVisible: Bool {
                                         return self.mapView.annotations.contains(where: { (annotation) -> Bool in
                                             if let driverAnnotation = annotation as? DriverAnnotation {
@@ -106,7 +109,7 @@ class HomeVC: UIViewController {
                                             return false
                                         })
                                     }
-                                    
+
                                     if !driverIsVisible {
                                         self.mapView.addAnnotation(annotation)
                                     }
@@ -128,7 +131,7 @@ class HomeVC: UIViewController {
             }
         })
     }
-    
+
     func centerMapOnUserLocation() {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, regionRadius * 2.0, regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
@@ -150,7 +153,7 @@ extension HomeVC: MKMapViewDelegate {
         UpdateService.instance.updateUserLocation(withCoordinate: userLocation.coordinate)
         UpdateService.instance.updateDriverLocation(withCoordinate: userLocation.coordinate)
     }
-    
+
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? DriverAnnotation {
             let identifier = "driver"
@@ -168,19 +171,19 @@ extension HomeVC: MKMapViewDelegate {
             return nil
         }
     }
-    
+
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         centerMapBtn.fadeTo(alphaValue: 1.0, withDuration: 0.2)
     }
-    
+
     func performSearch() {
         matchingItems.removeAll()
         let request = MKLocalSearchRequest()
         request.naturalLanguageQuery = destinationTxtField.text
         request.region = mapView.region
-        
+
         let search = MKLocalSearch(request: request)
-        
+
         search.start { (response, error) in
             if error != nil {
                 print(error.debugDescription)
@@ -202,22 +205,22 @@ extension HomeVC: UITextFieldDelegate {
             tableView.frame = CGRect(x: 20, y: view.frame.height, width: view.frame.width - 40, height: view.frame.height - 170)
             tableView.layer.cornerRadius = 5.0
             tableView.register(UITableViewCell.self, forCellReuseIdentifier: "locationCell")
-            
+
             tableView.delegate = self
             tableView.dataSource = self
             tableView.tag = 18
             tableView.rowHeight = 60
-            
+
             view.addSubview(tableView)
             animateTableView(shouldShow: true)
-            
+
             UIView.animate(withDuration: 0.2, animations: {
                 self.destinationCircle.backgroundColor = UIColor.red
                 self.destinationCircle.borderColor = UIColor.init(red: 199/255, green: 0/255, blue: 0/255, alpha: 1.0)
             })
         }
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == destinationTxtField {
             performSearch()
@@ -225,7 +228,7 @@ extension HomeVC: UITextFieldDelegate {
         }
         return true
     }
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == destinationTxtField {
             if destinationTxtField.text == "" {
@@ -236,14 +239,14 @@ extension HomeVC: UITextFieldDelegate {
             }
         }
     }
-    
+
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         matchingItems = []
         tableView.reloadData()
         centerMapOnUserLocation()
         return true
     }
-    
+
     func animateTableView(shouldShow: Bool) {
         if shouldShow {
             UIView.animate(withDuration: 0.2, animations: {
@@ -252,7 +255,7 @@ extension HomeVC: UITextFieldDelegate {
         } else {
             UIView.animate(withDuration: 0.2, animations: {
                 self.tableView.frame = CGRect(x: 20, y: 180, width: self.view.frame.width - 40, height: self.view.frame.height - 170)
-            }, completion: { (finished) in
+            }, completion: { (_) in
                 for subview in self.view.subviews {
                     if subview.tag == 18 {
                         subview.removeFromSuperview()
@@ -271,46 +274,38 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         cell.detailTextLabel?.text = mapItem.placemark.title
         return cell
     }
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         let passengerCoordinate = manager?.location?.coordinate
-        let passengerAnnotation = PassengerAnnotation(coordinate: passengerCoordinate!, key: currentUserId!)
+        let passengerAnnotation = PassengerAnnotation(coordinate: passengerCoordinate!, key: currentUser)
         mapView.addAnnotation(passengerAnnotation)
-        
+
         destinationTxtField.text = tableView.cellForRow(at: indexPath)?.textLabel?.text
-        
+
         let selectedMapItem = matchingItems[indexPath.row]
-        DataService.instance.REF_USERS.child(currentUserId!).updateChildValues(["tripCoordinate": [selectedMapItem.placemark.coordinate.latitude, selectedMapItem.placemark.coordinate.longitude]])
-        
+
+        DataService.instance.REF_USERS.child(currentUser).updateChildValues(["tripCoordinate": [selectedMapItem.placemark.coordinate.latitude, selectedMapItem.placemark.coordinate.longitude]])
+
         print("selected")
         animateTableView(shouldShow: false)
     }
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         view.endEditing(true)
     }
-    
+
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if destinationTxtField.text == "" {
             animateTableView(shouldShow: false)
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
 }
-
