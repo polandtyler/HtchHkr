@@ -1,3 +1,4 @@
 # Exclude personal Xcode user settings
 xcuserdata/
 GoogleService-Info.plist
+*.yml
