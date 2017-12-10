@@ -43,7 +43,6 @@ class RoundedShadowButton: UIButton {
             }, completion: { (finished) in
                 if finished == true {
                     spinner.startAnimating()
-                    // spinner was oddly offset by 1px, hence the 1px correction below
                     spinner.center = CGPoint(x: self.frame.width / 2 + 1, y: self.frame.width / 2 + 1)
                     spinner.fadeTo(alphaValue: 1.0, withDuration: 0.2)
                 }
