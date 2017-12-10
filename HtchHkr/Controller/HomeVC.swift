@@ -169,9 +169,18 @@ extension HomeVC: MKMapViewDelegate {
             view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.image = UIImage(named: "currentLocationAnnotation")
             return view
-        } else {
-            return nil
+        } else if let annotation = annotation as? MKPointAnnotation {
+            let identifier = "destination"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+            if annotationView == nil {
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            } else {
+                annotationView?.annotation = annotation
+            }
+            annotationView?.image = UIImage(named: "destinationAnnotation")
+            return annotationView
         }
+        return nil
     }
 
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
@@ -315,7 +324,6 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         
         dropPin(for: selectedMapItem.placemark)
 
-        print("selected")
         animateTableView(shouldShow: false)
     }
 
