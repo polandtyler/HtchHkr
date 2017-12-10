@@ -33,10 +33,10 @@ class HomeVC: UIViewController {
     var tableView = UITableView()
 
     var matchingItems: [MKMapItem] = [MKMapItem]()
-    
+
     var route = MKRoute()
-    
-    var selectedItemPlacemark: MKPlacemark? = nil
+
+    var selectedItemPlacemark: MKPlacemark?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -188,7 +188,7 @@ extension HomeVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         centerMapBtn.fadeTo(alphaValue: 1.0, withDuration: 0.2)
     }
-    
+
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let lineRenderer = MKPolylineRenderer(overlay: self.route.polyline)
         lineRenderer.strokeColor = UIColor(red: 216/255, green: 71/255, blue: 30/255, alpha: 0.75)
@@ -223,33 +223,33 @@ extension HomeVC: MKMapViewDelegate {
 
     func dropPin(for placemark: MKPlacemark) {
         selectedItemPlacemark = placemark
-        
+
         for annotation in mapView.annotations {
             if annotation.isKind(of: MKPointAnnotation.self) {
                 mapView.removeAnnotation(annotation)
             }
         }
-        
+
         let annotation = MKPointAnnotation()
         annotation.coordinate = placemark.coordinate
         mapView.addAnnotation(annotation)
     }
-    
+
     func searchMapKitForResultsWithPolyline(forMapItem mapItem: MKMapItem) {
         let request = MKDirectionsRequest()
         request.source = MKMapItem.forCurrentLocation()
         request.destination = mapItem
         request.transportType = .automobile
-        
+
         let directions = MKDirections(request: request)
-        
+
         directions.calculate { (response, error) in
             guard let response = response else {
                 print(error.debugDescription)
                 return
             }
             self.route = response.routes[0]
-            
+
             self.mapView.add(self.route.polyline)
         }
     }
@@ -352,9 +352,9 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         let selectedMapItem = matchingItems[indexPath.row]
 
         DataService.instance.REF_USERS.child((Auth.auth().currentUser?.uid)!).updateChildValues(["tripCoordinate": [selectedMapItem.placemark.coordinate.latitude, selectedMapItem.placemark.coordinate.longitude]])
-        
+
         dropPin(for: selectedMapItem.placemark)
-        
+
         searchMapKitForResultsWithPolyline(forMapItem: selectedMapItem)
 
         animateTableView(shouldShow: false)
