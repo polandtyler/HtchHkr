@@ -526,10 +526,10 @@
             </objects>
             <point key="canvasLocation" x="1198.5507246376812" y="128.80434782608697"/>
         </scene>
-        <!--View Controller-->
+        <!--PickupVC-->
         <scene sceneID="ssO-2R-oo7">
             <objects>
-                <viewController id="Dz5-fC-zhT" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PickupVC" title="PickupVC" id="Dz5-fC-zhT" customClass="PickupVC" customModule="HtchHkr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="emu-uF-DfX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -541,6 +541,9 @@
                                     <constraint firstAttribute="width" constant="30" id="w4g-VY-A2W"/>
                                 </constraints>
                                 <state key="normal" image="cancelBtn"/>
+                                <connections>
+                                    <action selector="cancelBtnWasPressed:" destination="Dz5-fC-zhT" eventType="touchUpInside" id="6gM-m0-9j2"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ug9-Ch-JIp">
                                 <rect key="frame" x="114.66666666666667" y="25" width="185.66666666666663" height="40"/>
@@ -572,6 +575,9 @@
                                 <state key="normal" title="ACCEPT TRIP">
                                     <color key="titleColor" red="0.0031885495409369469" green="0.3240973949432373" blue="0.49930089712142944" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="acceptTripBtnWasPressed:" destination="Dz5-fC-zhT" eventType="touchUpInside" id="nKF-Xa-BOw"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like to pick up this passenger?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5KK-Ne-rKl">
                                 <rect key="frame" x="20" y="612.66666666666663" width="374" height="23.333333333333371"/>
@@ -579,7 +585,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fw1-CX-9cP">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fw1-CX-9cP" customClass="RoundMapView" customModule="HtchHkr" customModuleProvider="target">
                                 <rect key="frame" x="45" y="206" width="325" height="325"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="325" id="TVo-OS-fDg"/>
@@ -604,6 +610,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="W3J-9L-ihm"/>
                     </view>
+                    <connections>
+                        <outlet property="pickupMapView" destination="fw1-CX-9cP" id="w3o-xZ-gA5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yWh-Fa-JBS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
