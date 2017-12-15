@@ -23,8 +23,8 @@ class HomeVC: UIViewController {
     var delegate: CenterVCDelegate?
 
     var manager: CLLocationManager?
-
-    var currentUser = ""
+//    Crash on trying to access Auth.auth() before FirebaseApp.configure() gets hit
+//    var currentUserId = Auth.auth().currentUser?.uid
 
     var regionRadius: CLLocationDistance = 1000
 
@@ -308,6 +308,17 @@ extension HomeVC: UITextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         matchingItems = []
         tableView.reloadData()
+        
+        DataService.instance.REF_USERS.child((Auth.auth().currentUser?.uid)!).child("tripCoordinate").removeValue()
+        mapView.removeOverlays(mapView.overlays)
+        for annotation in mapView.annotations {
+            if let annotation = annotation as? MKPointAnnotation {
+                mapView.removeAnnotation(annotation)
+            } else if annotation.isKind(of: PassengerAnnotation.self) {
+                mapView.removeAnnotation(annotation)
+            }
+        }
+        
         centerMapOnUserLocation()
         return true
     }
