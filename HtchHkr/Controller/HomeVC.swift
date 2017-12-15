@@ -75,8 +75,22 @@ class HomeVC: UIViewController {
     }
 
     @IBAction func centerMapBtnWasPressed(_ sender: Any) {
-        centerMapOnUserLocation()
-        centerMapBtn.fadeTo(alphaValue: 0.0, withDuration: 0.2)
+        DataService.instance.REF_USERS.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let userSnapshot = snapshot.children.allObjects as? [DataSnapshot] {
+                for user in userSnapshot {
+                    // TODO: replace with currentUserId once fixed
+                    if user.key == Auth.auth().currentUser?.uid {
+                        if user.hasChild("tripCoordinate") {
+                            self.zoom(toFitAnnotationsFromMapView: self.mapView)
+                            self.centerMapBtn.fadeTo(alphaValue: 0.0, withDuration: 0.2)
+                        } else {
+                            self.centerMapOnUserLocation()
+                            self.centerMapBtn.fadeTo(alphaValue: 0.0, withDuration: 0.2)
+                        }
+                    }
+                }
+            }
+        })
     }
 
     func checkLocationAuthStatus() {
@@ -196,6 +210,8 @@ extension HomeVC: MKMapViewDelegate {
         lineRenderer.lineJoin = .round
         lineRenderer.lineCap = .round
 
+        zoom(toFitAnnotationsFromMapView: self.mapView)
+        
         return lineRenderer
     }
 
@@ -260,6 +276,26 @@ extension HomeVC: MKMapViewDelegate {
             self.shouldPresentLoadingView(false)
         }
     }
+    
+    func zoom(toFitAnnotationsFromMapView mapView: MKMapView) {
+        if mapView.annotations.count == 0 {
+            return
+        }
+        
+        var topLeftCoordinate = CLLocationCoordinate2D(latitude: -90, longitude: 180)
+        var bottomRightCoordinate = CLLocationCoordinate2D(latitude: 90, longitude: -180)
+        
+        for annotation in mapView.annotations where !annotation.isKind(of: DriverAnnotation.self) {
+            topLeftCoordinate.longitude = fmin(topLeftCoordinate.longitude, annotation.coordinate.longitude)
+            topLeftCoordinate.latitude = fmax(topLeftCoordinate.latitude, annotation.coordinate.latitude)
+            bottomRightCoordinate.longitude = fmax(bottomRightCoordinate.longitude, annotation.coordinate.longitude)
+            bottomRightCoordinate.latitude = fmin(bottomRightCoordinate.latitude, annotation.coordinate.latitude)
+        }
+        // WAT
+        var region = MKCoordinateRegion(center: CLLocationCoordinate2DMake(topLeftCoordinate.latitude - (topLeftCoordinate.latitude - bottomRightCoordinate.latitude) * 0.5, topLeftCoordinate.longitude + (bottomRightCoordinate.longitude - topLeftCoordinate.longitude) * 0.5), span: MKCoordinateSpan(latitudeDelta: fabs(topLeftCoordinate.latitude - bottomRightCoordinate.latitude) * 2.0, longitudeDelta: fabs(bottomRightCoordinate.longitude - topLeftCoordinate.longitude) * 2.0))
+        region = mapView.regionThatFits(region)
+        mapView.setRegion(region, animated: true)
+    }
 }
 
 // MARK: UITextFieldDelegate
@@ -309,6 +345,7 @@ extension HomeVC: UITextFieldDelegate {
         matchingItems = []
         tableView.reloadData()
         
+        // TODO: replace currentUser?.uid with currentUserId once fixed
         DataService.instance.REF_USERS.child((Auth.auth().currentUser?.uid)!).child("tripCoordinate").removeValue()
         mapView.removeOverlays(mapView.overlays)
         for annotation in mapView.annotations {
@@ -365,6 +402,8 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         shouldPresentLoadingView(true)
 
         let passengerCoordinate = manager?.location?.coordinate
+
+        // TODO: replace currentUser?.uid with currentUserId once fixed
         let passengerAnnotation = PassengerAnnotation(coordinate: passengerCoordinate!, key: (Auth.auth().currentUser?.uid)!)
         mapView.addAnnotation(passengerAnnotation)
 
@@ -372,6 +411,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
 
         let selectedMapItem = matchingItems[indexPath.row]
 
+        // TODO: replace currentUser?.uid with currentUserId once fixed
         DataService.instance.REF_USERS.child((Auth.auth().currentUser?.uid)!).updateChildValues(["tripCoordinate": [selectedMapItem.placemark.coordinate.latitude, selectedMapItem.placemark.coordinate.longitude]])
 
         dropPin(for: selectedMapItem.placemark)
