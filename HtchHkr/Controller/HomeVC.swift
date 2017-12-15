@@ -246,9 +246,7 @@ extension HomeVC: MKMapViewDelegate {
         directions.calculate { (response, error) in
             
             if response?.routes != nil {
-                if let oldRoute = self.route as? MKRoute {
-                    self.mapView.remove(oldRoute.polyline)
-                }
+                self.mapView.remove(self.route.polyline)
             }
             guard let response = response else {
                 print(error.debugDescription)
