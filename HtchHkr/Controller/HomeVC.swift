@@ -12,7 +12,7 @@ import RevealingSplashView
 import CoreLocation
 import Firebase
 
-class HomeVC: UIViewController {
+class HomeVC: UIViewController, Alertable {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var actionBtn: RoundedShadowButton!
@@ -225,9 +225,10 @@ extension HomeVC: MKMapViewDelegate {
 
         search.start { (response, error) in
             if error != nil {
-                print(error.debugDescription)
+                self.showAlert("An error occurred. Please try again.")
+                self.shouldPresentLoadingView(false)
             } else if response?.mapItems.count == 0 {
-                print("No results found")
+                self.showAlert("No results. Please search again for a different location.")
             } else {
                 for mapItem in response!.mapItems {
                     self.matchingItems.append(mapItem as MKMapItem)
@@ -266,7 +267,7 @@ extension HomeVC: MKMapViewDelegate {
                 self.mapView.remove(self.route.polyline)
             }
             guard let response = response else {
-                print(error.debugDescription)
+                self.showAlert(error.debugDescription)
                 return
             }
             self.route = response.routes[0]
