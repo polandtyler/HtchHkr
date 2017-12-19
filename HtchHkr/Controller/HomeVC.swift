@@ -24,7 +24,7 @@ class HomeVC: UIViewController, Alertable {
 
     var manager: CLLocationManager?
 //    Crash on trying to access Auth.auth() before FirebaseApp.configure() gets hit
-//    var currentUserId = Auth.auth().currentUser?.uid
+    var currentUserId = Auth.auth().currentUser?.uid
 
     var regionRadius: CLLocationDistance = 1000
 
@@ -101,8 +101,7 @@ class HomeVC: UIViewController, Alertable {
         DataService.instance.REF_USERS.observeSingleEvent(of: .value, with: { (snapshot) in
             if let userSnapshot = snapshot.children.allObjects as? [DataSnapshot] {
                 for user in userSnapshot {
-                    // TODO: replace with currentUserId once fixed
-                    if user.key == Auth.auth().currentUser?.uid {
+                    if user.key == self.currentUserId {
                         if user.hasChild("tripCoordinate") {
                             self.zoom(toFitAnnotationsFromMapView: self.mapView)
                             self.centerMapBtn.fadeTo(alphaValue: 0.0, withDuration: 0.2)
@@ -368,9 +367,8 @@ extension HomeVC: UITextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         matchingItems = []
         tableView.reloadData()
-        
-        // TODO: replace currentUser?.uid with currentUserId once fixed
-        DataService.instance.REF_USERS.child((Auth.auth().currentUser?.uid)!).child("tripCoordinate").removeValue()
+
+        DataService.instance.REF_USERS.child(currentUserId!).child("tripCoordinate").removeValue()
         mapView.removeOverlays(mapView.overlays)
         for annotation in mapView.annotations {
             if let annotation = annotation as? MKPointAnnotation {
@@ -426,17 +424,14 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         shouldPresentLoadingView(true)
 
         let passengerCoordinate = manager?.location?.coordinate
-
-        // TODO: replace currentUser?.uid with currentUserId once fixed
-        let passengerAnnotation = PassengerAnnotation(coordinate: passengerCoordinate!, key: (Auth.auth().currentUser?.uid)!)
+        let passengerAnnotation = PassengerAnnotation(coordinate: passengerCoordinate!, key: currentUserId!)
         mapView.addAnnotation(passengerAnnotation)
 
         destinationTxtField.text = tableView.cellForRow(at: indexPath)?.textLabel?.text
 
         let selectedMapItem = matchingItems[indexPath.row]
 
-        // TODO: replace currentUser?.uid with currentUserId once fixed
-        DataService.instance.REF_USERS.child((Auth.auth().currentUser?.uid)!).updateChildValues(["tripCoordinate": [selectedMapItem.placemark.coordinate.latitude, selectedMapItem.placemark.coordinate.longitude]])
+        DataService.instance.REF_USERS.child(currentUserId!).updateChildValues(["tripCoordinate": [selectedMapItem.placemark.coordinate.latitude, selectedMapItem.placemark.coordinate.longitude]])
 
         dropPin(for: selectedMapItem.placemark)
 
