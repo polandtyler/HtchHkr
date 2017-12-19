@@ -62,13 +62,13 @@ class HomeVC: UIViewController, Alertable {
         revealingSplashView.startAnimation()
 
         revealingSplashView.heartAttack = true
-        
+
         UpdateService.instance.observeTrips { (tripDict) in
             if let tripDict = tripDict {
                 let pickupCoordinateArray = tripDict["pickupCoordinate"] as! NSArray
                 let tripKey = tripDict["passengerKey"] as! String
                 let acceptanceStatus = tripDict["tripIsAccepted"] as! Bool
-                
+
                 if acceptanceStatus == false {
                     DataService.instance.driverIsAvailable(key: (Auth.auth().currentUser?.uid)!, handler: { (available) in
                         if let available = available {
@@ -88,7 +88,7 @@ class HomeVC: UIViewController, Alertable {
     @IBAction func actionBtnPressed(_ sender: Any) {
         UpdateService.instance.updateTripsWithCoordinatesUponRequest()
         actionBtn.animateButton(shouldLoad: true, withMessage: nil)
-        
+
         self.view.endEditing(true)
         destinationTxtField.isUserInteractionEnabled = false
     }
@@ -233,7 +233,7 @@ extension HomeVC: MKMapViewDelegate {
         lineRenderer.lineCap = .round
 
         zoom(toFitAnnotationsFromMapView: self.mapView)
-        
+
         return lineRenderer
     }
 
@@ -284,7 +284,7 @@ extension HomeVC: MKMapViewDelegate {
         let directions = MKDirections(request: request)
 
         directions.calculate { (response, error) in
-            
+
             if response?.routes != nil {
                 self.mapView.remove(self.route.polyline)
             }
@@ -295,19 +295,19 @@ extension HomeVC: MKMapViewDelegate {
             self.route = response.routes[0]
 
             self.mapView.add(self.route.polyline)
-            
+
             self.shouldPresentLoadingView(false)
         }
     }
-    
+
     func zoom(toFitAnnotationsFromMapView mapView: MKMapView) {
         if mapView.annotations.count == 0 {
             return
         }
-        
+
         var topLeftCoordinate = CLLocationCoordinate2D(latitude: -90, longitude: 180)
         var bottomRightCoordinate = CLLocationCoordinate2D(latitude: 90, longitude: -180)
-        
+
         for annotation in mapView.annotations where !annotation.isKind(of: DriverAnnotation.self) {
             topLeftCoordinate.longitude = fmin(topLeftCoordinate.longitude, annotation.coordinate.longitude)
             topLeftCoordinate.latitude = fmax(topLeftCoordinate.latitude, annotation.coordinate.latitude)
@@ -377,7 +377,7 @@ extension HomeVC: UITextFieldDelegate {
                 mapView.removeAnnotation(annotation)
             }
         }
-        
+
         centerMapOnUserLocation()
         return true
     }
@@ -420,7 +420,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         shouldPresentLoadingView(true)
 
         let passengerCoordinate = manager?.location?.coordinate

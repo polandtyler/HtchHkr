@@ -11,33 +11,31 @@ import MapKit
 
 class PickupVC: UIViewController {
     var regionRadius: CLLocationDistance = 2000
-    var pin: MKPlacemark? = nil
+    var pin: MKPlacemark?
     var pickupCoordinate: CLLocationCoordinate2D!
     var passengerKey: String!
-    var locationPlacemark: MKPlacemark? = nil
+    var locationPlacemark: MKPlacemark?
 
     @IBOutlet weak var pickupMapView: RoundMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         pickupMapView.delegate = self
-        
+
         locationPlacemark = MKPlacemark(coordinate: pickupCoordinate)
         dropPinFor(placemark: locationPlacemark!)
         centerMapOnLocation(location: (locationPlacemark?.location)!)
     }
-    
+
     func initData(coordinate: CLLocationCoordinate2D, passengerKey: String) {
         self.pickupCoordinate = coordinate
         self.passengerKey = passengerKey
     }
 
-    
     @IBAction func cancelBtnWasPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
-    
+
     @IBAction func acceptTripBtnWasPressed(_ sender: Any) {
     }
 }

@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var MenuContainerVC: ContainerVC {
         return containerVC
     }
-    
+
     override init() {
             FirebaseApp.configure()
             Database.database().isPersistenceEnabled = true
