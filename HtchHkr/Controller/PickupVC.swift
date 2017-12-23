@@ -11,7 +11,7 @@ import MapKit
 
 class PickupVC: UIViewController {
     var regionRadius: CLLocationDistance = 2000
-    var pin: MKPlacemark?
+    var pin: MKPlacemark? = nil
     var pickupCoordinate: CLLocationCoordinate2D!
     var passengerKey: String!
     var locationPlacemark: MKPlacemark?

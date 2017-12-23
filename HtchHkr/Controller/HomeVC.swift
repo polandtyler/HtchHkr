@@ -86,11 +86,15 @@ class HomeVC: UIViewController, Alertable {
     }
 
     @IBAction func actionBtnPressed(_ sender: Any) {
-        UpdateService.instance.updateTripsWithCoordinatesUponRequest()
-        actionBtn.animateButton(shouldLoad: true, withMessage: nil)
+        if destinationTxtField.text?.isEmpty == false {
+            UpdateService.instance.updateTripsWithCoordinatesUponRequest()
+            actionBtn.animateButton(shouldLoad: true, withMessage: nil)
 
-        self.view.endEditing(true)
-        destinationTxtField.isUserInteractionEnabled = false
+            self.view.endEditing(true)
+            destinationTxtField.isUserInteractionEnabled = false
+        } else {
+            showAlert("Please input a destination")
+        }
     }
 
     @IBAction func menuBtnPressed(_ sender: Any) {
