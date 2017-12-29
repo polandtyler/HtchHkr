@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Firebase
 
 class PickupVC: UIViewController {
     var regionRadius: CLLocationDistance = 2000
@@ -15,6 +16,7 @@ class PickupVC: UIViewController {
     var pickupCoordinate: CLLocationCoordinate2D!
     var passengerKey: String!
     var locationPlacemark: MKPlacemark?
+    var currentUserId = Auth.auth().currentUser?.uid
 
     @IBOutlet weak var pickupMapView: RoundMapView!
 

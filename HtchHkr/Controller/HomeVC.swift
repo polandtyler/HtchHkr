@@ -24,7 +24,8 @@ class HomeVC: UIViewController, Alertable {
 
     var manager: CLLocationManager?
 //    Crash on trying to access Auth.auth() before FirebaseApp.configure() gets hit
-    var currentUserId = Auth.auth().currentUser?.uid
+    var currentUserId = ""
+    
 
     var regionRadius: CLLocationDistance = 1000
 
@@ -37,9 +38,19 @@ class HomeVC: UIViewController, Alertable {
     var route = MKRoute()
 
     var selectedItemPlacemark: MKPlacemark?
+    
+    func checkForUserId() {
+        if Auth.auth().currentUser?.uid != nil {
+            currentUserId = (Auth.auth().currentUser?.uid)!
+        } else {
+            return
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        checkForUserId()
 
         manager = CLLocationManager()
         manager?.delegate = self
@@ -70,7 +81,7 @@ class HomeVC: UIViewController, Alertable {
                 let acceptanceStatus = tripDict["tripIsAccepted"] as! Bool
 
                 if acceptanceStatus == false {
-                    DataService.instance.driverIsAvailable(key: (Auth.auth().currentUser?.uid)!, handler: { (available) in
+                    DataService.instance.driverIsAvailable(key: self.currentUserId, handler: { (available) in
                         if let available = available {
                             if available == true {
                                 let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -372,7 +383,7 @@ extension HomeVC: UITextFieldDelegate {
         matchingItems = []
         tableView.reloadData()
 
-        DataService.instance.REF_USERS.child(currentUserId!).child("tripCoordinate").removeValue()
+        DataService.instance.REF_USERS.child(currentUserId).child("tripCoordinate").removeValue()
         mapView.removeOverlays(mapView.overlays)
         for annotation in mapView.annotations {
             if let annotation = annotation as? MKPointAnnotation {
@@ -428,14 +439,14 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         shouldPresentLoadingView(true)
 
         let passengerCoordinate = manager?.location?.coordinate
-        let passengerAnnotation = PassengerAnnotation(coordinate: passengerCoordinate!, key: currentUserId!)
+        let passengerAnnotation = PassengerAnnotation(coordinate: passengerCoordinate!, key: currentUserId)
         mapView.addAnnotation(passengerAnnotation)
 
         destinationTxtField.text = tableView.cellForRow(at: indexPath)?.textLabel?.text
 
         let selectedMapItem = matchingItems[indexPath.row]
 
-        DataService.instance.REF_USERS.child(currentUserId!).updateChildValues(["tripCoordinate": [selectedMapItem.placemark.coordinate.latitude, selectedMapItem.placemark.coordinate.longitude]])
+        DataService.instance.REF_USERS.child(currentUserId).updateChildValues(["tripCoordinate": [selectedMapItem.placemark.coordinate.latitude, selectedMapItem.placemark.coordinate.longitude]])
 
         dropPin(for: selectedMapItem.placemark)
 
