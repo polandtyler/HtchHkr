@@ -191,6 +191,20 @@
                                     <constraint firstItem="nOQ-9a-tab" firstAttribute="leading" secondItem="rl3-Zi-xXH" secondAttribute="leading" constant="10" id="Sh4-xx-v6t"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6V-XL-5aa">
+                                <rect key="frame" x="129" y="596" width="157" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="157" id="ela-ts-eGv"/>
+                                    <constraint firstAttribute="height" constant="45" id="xwK-dp-O9d"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="16"/>
+                                <state key="normal" title="CANCEL TRIP">
+                                    <color key="titleColor" red="0.84479981660842896" green="0.14763343334197998" blue="0.11755163222551346" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelBtnWasPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="C49-Dv-s3z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -208,16 +222,19 @@
                             <constraint firstItem="rl3-Zi-xXH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="g4W-zz-7t5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yiY-hp-Yk6" secondAttribute="trailing" constant="8" id="gCn-ct-WVL"/>
                             <constraint firstItem="yiY-hp-Yk6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="gz2-Hi-1zD"/>
+                            <constraint firstItem="EkU-Lc-Neq" firstAttribute="top" secondItem="o6V-XL-5aa" secondAttribute="bottom" constant="15" id="iGE-1y-BN4"/>
                             <constraint firstItem="eGS-yf-Tb8" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="p0Y-2f-uTP"/>
                             <constraint firstItem="EkU-Lc-Neq" firstAttribute="top" secondItem="JXZ-y9-5f8" secondAttribute="bottom" constant="8" id="rU5-fW-Fa1"/>
                             <constraint firstItem="EkU-Lc-Neq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sAf-ct-vIY"/>
                             <constraint firstItem="EkU-Lc-Neq" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="t42-74-W1v"/>
+                            <constraint firstItem="o6V-XL-5aa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xJt-5m-HFj"/>
                             <constraint firstItem="yiY-hp-Yk6" firstAttribute="centerY" secondItem="49M-KS-CbF" secondAttribute="centerY" id="xZB-bs-kPh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="actionBtn" destination="QKh-VL-RJ3" id="Bx3-Mi-LEV"/>
+                        <outlet property="cancelBtn" destination="o6V-XL-5aa" id="R3v-dc-mXG"/>
                         <outlet property="centerMapBtn" destination="JXZ-y9-5f8" id="qGj-xf-2Ck"/>
                         <outlet property="destinationCircle" destination="ROJ-VH-Cny" id="S2K-SW-Bo9"/>
                         <outlet property="destinationTxtField" destination="tqg-b3-9mK" id="Fwk-pG-bHN"/>
