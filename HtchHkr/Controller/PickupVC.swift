@@ -12,7 +12,7 @@ import Firebase
 
 class PickupVC: UIViewController {
     var regionRadius: CLLocationDistance = 2000
-    var pin: MKPlacemark? = nil
+    var pin: MKPlacemark?
     var pickupCoordinate: CLLocationCoordinate2D!
     var passengerKey: String!
     var locationPlacemark: MKPlacemark?
@@ -27,7 +27,7 @@ class PickupVC: UIViewController {
         locationPlacemark = MKPlacemark(coordinate: pickupCoordinate)
         dropPinFor(placemark: locationPlacemark!)
         centerMapOnLocation(location: (locationPlacemark?.location)!)
-        
+
         DataService.instance.REF_TRIPS.child(passengerKey).observe(.value, with: { (tripSnapshot) in
             if tripSnapshot.exists() {
                 if tripSnapshot.childSnapshot(forPath: "tripIsAccepted").value as? Bool == true {

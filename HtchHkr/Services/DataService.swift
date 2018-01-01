@@ -61,7 +61,7 @@ class DataService {
             }
         })
     }
-    
+
     func driverIsOnTrip(driverKey: String, handler: @escaping(_ status: Bool?, _ driverKey: String?, _ tripKey: String?) -> Void) {
         DataService.instance.REF_DRIVERS.child(driverKey).child("driverIsOnTrip").observe(.value, with: { (driverTripStatusSnapshot) in
             if let driverTripStatusSnapshot = driverTripStatusSnapshot.value as? Bool {
@@ -100,7 +100,7 @@ class DataService {
             }
         })
     }
-    
+
     func userIsDriver(userKey: String, handler: @escaping(_ status: Bool?) -> Void) {
         DataService.instance.REF_DRIVERS.observeSingleEvent(of: .value, with: { (driverSnapshot) in
             if let driverSnapshot = driverSnapshot.children.allObjects as? [DataSnapshot] {
