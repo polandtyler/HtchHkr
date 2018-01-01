@@ -181,7 +181,7 @@ class HomeVC: UIViewController, Alertable {
                 for user in userSnapshot {
                     if user.key == self.currentUserId {
                         if user.hasChild("tripCoordinate") {
-                            self.zoom(toFitAnnotationsFromMapView: self.mapView)
+                            self.zoom(toFitAnnotationsFromMapView: self.mapView, forActiveTripWithDriver: false, withKey: nil)
                             self.centerMapBtn.fadeTo(alphaValue: 0.0, withDuration: 0.2)
                         } else {
                             self.centerMapOnUserLocation()
@@ -316,7 +316,7 @@ extension HomeVC: MKMapViewDelegate {
             if isDriver == true {
                 DataService.instance.driverIsOnTrip(driverKey: self.currentUserId, handler: { (isOnTrip, driverKey, tripKey) in
                     if isOnTrip == true {
-                        self.zoom(toFitAnnotationsFromMapView: self.mapView)
+                        self.zoom(toFitAnnotationsFromMapView: self.mapView, forActiveTripWithDriver: true, withKey: driverKey)
                     } else {
                         self.centerMapOnUserLocation()
                     }
@@ -324,7 +324,7 @@ extension HomeVC: MKMapViewDelegate {
             } else {
                 DataService.instance.passengerIsOnTrip(passengerKey: self.currentUserId, handler: { (isOnTrip, driverKey, tripKey) in
                     if isOnTrip == true {
-                        self.zoom(toFitAnnotationsFromMapView: self.mapView)
+                        self.zoom(toFitAnnotationsFromMapView: self.mapView, forActiveTripWithDriver: true, withKey: driverKey)
                     } else {
                         self.centerMapOnUserLocation()
                     }
@@ -371,7 +371,7 @@ extension HomeVC: MKMapViewDelegate {
 
         shouldPresentLoadingView(false)
 
-        zoom(toFitAnnotationsFromMapView: self.mapView)
+        zoom(toFitAnnotationsFromMapView: self.mapView, forActiveTripWithDriver: false, withKey: nil)
 
         return lineRenderer
     }
@@ -445,13 +445,31 @@ extension HomeVC: MKMapViewDelegate {
         }
     }
 
-    func zoom(toFitAnnotationsFromMapView mapView: MKMapView) {
+    func zoom(toFitAnnotationsFromMapView mapView: MKMapView, forActiveTripWithDriver: Bool, withKey key: String?) {
         if mapView.annotations.count == 0 {
             return
         }
 
         var topLeftCoordinate = CLLocationCoordinate2D(latitude: -90, longitude: 180)
         var bottomRightCoordinate = CLLocationCoordinate2D(latitude: 90, longitude: -180)
+        
+        if forActiveTripWithDriver == true {
+            for annotation in mapView.annotations {
+                if let annotation = annotation as? DriverAnnotation {
+                    if annotation.key == key {
+                        topLeftCoordinate.longitude = fmin(topLeftCoordinate.longitude, annotation.coordinate.longitude)
+                        topLeftCoordinate.latitude = fmax(topLeftCoordinate.latitude, annotation.coordinate.latitude)
+                        bottomRightCoordinate.longitude = fmax(bottomRightCoordinate.longitude, annotation.coordinate.longitude)
+                        bottomRightCoordinate.latitude = fmin(bottomRightCoordinate.latitude, annotation.coordinate.latitude)
+                    }
+                } else {
+                    topLeftCoordinate.longitude = fmin(topLeftCoordinate.longitude, annotation.coordinate.longitude)
+                    topLeftCoordinate.latitude = fmax(topLeftCoordinate.latitude, annotation.coordinate.latitude)
+                    bottomRightCoordinate.longitude = fmax(bottomRightCoordinate.longitude, annotation.coordinate.longitude)
+                    bottomRightCoordinate.latitude = fmin(bottomRightCoordinate.latitude, annotation.coordinate.latitude)
+                }
+            }
+        }
 
         for annotation in mapView.annotations where !annotation.isKind(of: DriverAnnotation.self) {
             topLeftCoordinate.longitude = fmin(topLeftCoordinate.longitude, annotation.coordinate.longitude)
@@ -459,7 +477,7 @@ extension HomeVC: MKMapViewDelegate {
             bottomRightCoordinate.longitude = fmax(bottomRightCoordinate.longitude, annotation.coordinate.longitude)
             bottomRightCoordinate.latitude = fmin(bottomRightCoordinate.latitude, annotation.coordinate.latitude)
         }
-        // WAT
+
         var region = MKCoordinateRegion(center: CLLocationCoordinate2DMake(topLeftCoordinate.latitude - (topLeftCoordinate.latitude - bottomRightCoordinate.latitude) * 0.5, topLeftCoordinate.longitude + (bottomRightCoordinate.longitude - topLeftCoordinate.longitude) * 0.5), span: MKCoordinateSpan(latitudeDelta: fabs(topLeftCoordinate.latitude - bottomRightCoordinate.latitude) * 2.0, longitudeDelta: fabs(bottomRightCoordinate.longitude - topLeftCoordinate.longitude) * 2.0))
         region = mapView.regionThatFits(region)
         mapView.setRegion(region, animated: true)
