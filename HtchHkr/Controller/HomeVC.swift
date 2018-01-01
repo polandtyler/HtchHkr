@@ -112,6 +112,12 @@ class HomeVC: UIViewController, Alertable {
 
         DataService.instance.REF_DRIVERS.observe(.value, with: { (snapshot) in
             self.loadDriverAnnotationsFromFB()
+            
+            DataService.instance.passengerIsOnTrip(passengerKey: self.currentUserId, handler: { (isOnTrip, driverKey, tripKey) in
+                if isOnTrip == true {
+                    self.zoom(toFitAnnotationsFromMapView: self.mapView, forActiveTripWithDriver: true, withKey: driverKey)
+                }
+            })
         })
 
         self.view.addSubview(revealingSplashView)
