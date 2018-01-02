@@ -103,7 +103,7 @@ extension LoginVC: UITextFieldDelegate {
             textField.placeholder = nil
         }
     }
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == emailField {
             textField.placeholder = "Email"
