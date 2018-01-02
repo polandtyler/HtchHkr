@@ -50,9 +50,9 @@ class HomeVC: UIViewController, Alertable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         checkForUserId()
-
-        DataService.instance.driverIsAvailable(key: self.currentUserId, handler: { (status) in
-            if status == false {
+        
+        DataService.instance.driverIsOnTrip(driverKey: self.currentUserId, handler: { (isOnTrip, driverKey, tripKey) in
+            if isOnTrip == true {
                 DataService.instance.REF_TRIPS.observeSingleEvent(of: .value, with: { (tripSnapshot) in
                     if let tripSnapshot = tripSnapshot.children.allObjects as? [DataSnapshot] {
                         for trip in tripSnapshot {
@@ -60,7 +60,7 @@ class HomeVC: UIViewController, Alertable {
                                 let pickupCoordinateArray = trip.childSnapshot(forPath: "pickupCoordinate").value as! NSArray
                                 let pickupCoordinate = CLLocationCoordinate2D(latitude: pickupCoordinateArray[0] as! CLLocationDegrees, longitude: pickupCoordinateArray[1] as! CLLocationDegrees)
                                 let pickupPlacemark = MKPlacemark(coordinate: pickupCoordinate)
-
+                                
                                 self.dropPin(for: pickupPlacemark)
                                 self.searchMapKitForResultsWithPolyline(forOriginMapItem: nil, withDestinationMapItem: MKMapItem(placemark: pickupPlacemark))
                             }
@@ -368,8 +368,6 @@ extension HomeVC: MKMapViewDelegate {
 
         shouldPresentLoadingView(false)
 
-        zoom(toFitAnnotationsFromMapView: self.mapView, forActiveTripWithDriver: false, withKey: nil)
-
         return lineRenderer
     }
 
@@ -436,6 +434,8 @@ extension HomeVC: MKMapViewDelegate {
             if self.mapView.overlays.count == 0 {
                 self.mapView.add(self.route.polyline)
             }
+            
+            self.zoom(toFitAnnotationsFromMapView: self.mapView, forActiveTripWithDriver: false, withKey: nil)
 
             let delegate = AppDelegate.getAppDelegate()
             delegate.window?.rootViewController?.shouldPresentLoadingView(false)
