@@ -25,7 +25,7 @@ class HomeVC: UIViewController, Alertable {
 
     var manager: CLLocationManager?
 //    Crash on trying to access Auth.auth() before FirebaseApp.configure() gets hit
-    var currentUserId = ""
+    var currentUserId = "unknown"
 
     var regionRadius: CLLocationDistance = 1000
 
