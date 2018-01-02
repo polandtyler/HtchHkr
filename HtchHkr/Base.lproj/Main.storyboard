@@ -93,10 +93,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="QKh-VL-RJ3" firstAttribute="leading" secondItem="EkU-Lc-Neq" secondAttribute="leading" constant="20" id="DVH-dh-lcT"/>
+                                    <constraint firstAttribute="trailing" secondItem="QKh-VL-RJ3" secondAttribute="trailing" constant="20" id="8Wv-4f-gEu"/>
+                                    <constraint firstAttribute="bottom" secondItem="QKh-VL-RJ3" secondAttribute="bottom" constant="20" id="H6a-Pj-mAf"/>
                                     <constraint firstAttribute="height" constant="80" id="SAa-HC-RfJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="QKh-VL-RJ3" secondAttribute="bottom" constant="20" id="pgF-Ki-MUd"/>
-                                    <constraint firstAttribute="trailing" secondItem="QKh-VL-RJ3" secondAttribute="trailing" constant="20" id="qJ2-eC-Z4C"/>
+                                    <constraint firstItem="QKh-VL-RJ3" firstAttribute="leading" secondItem="EkU-Lc-Neq" secondAttribute="leading" constant="20" id="zql-Mc-uSS"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JXZ-y9-5f8">
@@ -192,9 +192,8 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6V-XL-5aa">
-                                <rect key="frame" x="129" y="596" width="157" height="45"/>
+                                <rect key="frame" x="157" y="596" width="101" height="45"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="157" id="ela-ts-eGv"/>
                                     <constraint firstAttribute="height" constant="45" id="xwK-dp-O9d"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="16"/>
