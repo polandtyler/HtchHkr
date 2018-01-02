@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class LoginVC: UIViewController, UITextFieldDelegate, Alertable {
+class LoginVC: UIViewController, Alertable {
 
     @IBOutlet weak var emailField: RoundedCornerTextField!
     @IBOutlet weak var passwordField: RoundedCornerTextField!
@@ -33,20 +33,6 @@ class LoginVC: UIViewController, UITextFieldDelegate, Alertable {
 
     @objc func handleScreenTap(sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField.isFirstResponder {
-            textField.placeholder = nil
-        }
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == emailField {
-            textField.placeholder = "Email"
-        } else if textField == passwordField {
-            textField.placeholder = "Password"
-        }
     }
 
     @IBAction func authBtnWasPressed(_ sender: Any) {
@@ -106,6 +92,23 @@ class LoginVC: UIViewController, UITextFieldDelegate, Alertable {
                     }
                 })
             }
+        }
+    }
+}
+
+// MARK: UITextFieldDelegate
+extension LoginVC: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.isFirstResponder {
+            textField.placeholder = nil
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == emailField {
+            textField.placeholder = "Email"
+        } else if textField == passwordField {
+            textField.placeholder = "Password"
         }
     }
 }
