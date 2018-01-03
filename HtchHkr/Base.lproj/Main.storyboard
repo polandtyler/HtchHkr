@@ -322,7 +322,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="knp-6O-Eoz">
                                         <rect key="frame" x="0.0" y="0.0" width="169.66666666666666" height="55.333333333333336"/>
                                         <subviews>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d5Z-aO-VUj">
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="d5Z-aO-VUj">
                                                 <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
                                                 <connections>
                                                     <action selector="switchWasToggled:" destination="d6t-Ew-HoU" eventType="valueChanged" id="UJC-tD-tPd"/>
