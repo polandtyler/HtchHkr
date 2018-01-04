@@ -180,19 +180,19 @@ class HomeVC: UIViewController, Alertable {
     }
 
     @IBAction func cancelBtnWasPressed(_ sender: Any) {
-        DataService.instance.driverIsOnTrip(driverKey: currentUserId) { (isOnTrip, driverKey, tripKey) in
+        DataService.instance.driverIsOnTrip(driverKey: currentUserId, handler: { (isOnTrip, driverKey, tripKey) in
             if isOnTrip == true {
                 UpdateService.instance.cancelTrip(withPassengerKey: tripKey!, forDriverKey: driverKey!)
             }
-        }
+        })
 
-        DataService.instance.passengerIsOnTrip(passengerKey: currentUserId) { (isOnTrip, driverKey, tripKey) in
+        DataService.instance.passengerIsOnTrip(passengerKey: currentUserId, handler: { (isOnTrip, driverKey, tripKey) in
             if isOnTrip == true {
                 UpdateService.instance.cancelTrip(withPassengerKey: self.currentUserId, forDriverKey: driverKey!)
             } else {
                 UpdateService.instance.cancelTrip(withPassengerKey: self.currentUserId, forDriverKey: nil)
             }
-        }
+        })
         self.actionBtn.isUserInteractionEnabled = true
     }
 
@@ -329,7 +329,7 @@ class HomeVC: UIViewController, Alertable {
     }
 
     func connectUserAndDriverForTrip() {
-        DataService.instance.passengerIsOnTrip(passengerKey: self.currentUserId) { (isOnTrip, driverKey, tripKey) in
+        DataService.instance.passengerIsOnTrip(passengerKey: self.currentUserId, handler: { (isOnTrip, driverKey, tripKey) in
             if isOnTrip == true {
                 self.removeOverlaysAndAnnotations(forDrivers: false, forPassengers: true)
 
@@ -337,8 +337,8 @@ class HomeVC: UIViewController, Alertable {
                     let tripDict = tripSnapshot.value as? Dictionary<String, AnyObject>
                     let driverId = tripDict?["driverKey"] as! String
 
-                    let pickupCoordinateArray = tripDict?["pickupCoordinate"] as? NSArray
-                    let pickupCoordinate = CLLocationCoordinate2D(latitude: pickupCoordinateArray?[0] as! CLLocationDegrees, longitude: pickupCoordinateArray?[1] as! CLLocationDegrees)
+                    let pickupCoordinateArray = tripDict?["pickupCoordinate"] as! NSArray
+                    let pickupCoordinate = CLLocationCoordinate2D(latitude: pickupCoordinateArray[0] as! CLLocationDegrees, longitude: pickupCoordinateArray[1] as! CLLocationDegrees)
                     let pickupPlacemark = MKPlacemark(coordinate: pickupCoordinate)
                     let pickupMapItem = MKMapItem(placemark: pickupPlacemark)
 
@@ -413,7 +413,7 @@ extension HomeVC: MKMapViewDelegate {
         UpdateService.instance.updateUserLocation(withCoordinate: userLocation.coordinate)
         UpdateService.instance.updateDriverLocation(withCoordinate: userLocation.coordinate)
 
-        DataService.instance.userIsDriver(userKey: currentUserId) { (isDriver) in
+        DataService.instance.userIsDriver(userKey: currentUserId, handler: { (isDriver) in
             if isDriver == true {
                 DataService.instance.driverIsOnTrip(driverKey: self.currentUserId, handler: { (isOnTrip, driverKey, tripKey) in
                     if isOnTrip == true {
