@@ -16,9 +16,9 @@ class DataService {
     static let instance = DataService()
 
     private var _REF_BASE = DB_BASE
-    private var _REF_USERS = DB_BASE.child("users")
-    private var _REF_DRIVERS = DB_BASE.child("drivers")
-    private var _REF_TRIPS = DB_BASE.child("trips")
+    private var _REF_USERS = DB_BASE.child(USERS)
+    private var _REF_DRIVERS = DB_BASE.child(DRIVERS)
+    private var _REF_TRIPS = DB_BASE.child(TRIPS)
 
     var REF_BASE: DatabaseReference {
         return _REF_BASE
@@ -49,8 +49,8 @@ class DataService {
             if let driverSnapshot = snapshot.children.allObjects as? [DataSnapshot] {
                 for driver in driverSnapshot {
                     if driver.key == key {
-                        if driver.childSnapshot(forPath: "isPickupModeEnabled").value as? Bool == true {
-                            if driver.childSnapshot(forPath: "driverIsOnTrip").value as? Bool == true {
+                        if driver.childSnapshot(forPath: ACCOUNT_PICKUP_MODE_ENABLED).value as? Bool == true {
+                            if driver.childSnapshot(forPath: DRIVER_IS_ON_TRIP).value as? Bool == true {
                                 handler(false)
                             } else {
                                 handler(true)
@@ -63,13 +63,13 @@ class DataService {
     }
 
     func driverIsOnTrip(driverKey: String, handler: @escaping(_ status: Bool?, _ driverKey: String?, _ tripKey: String?) -> Void) {
-        DataService.instance.REF_DRIVERS.child(driverKey).child("driverIsOnTrip").observe(.value, with: { (driverTripStatusSnapshot) in
+        DataService.instance.REF_DRIVERS.child(driverKey).child(DRIVER_IS_ON_TRIP).observe(.value, with: { (driverTripStatusSnapshot) in
             if let driverTripStatusSnapshot = driverTripStatusSnapshot.value as? Bool {
                 if driverTripStatusSnapshot == true {
                     DataService.instance.REF_TRIPS.observeSingleEvent(of: .value, with: { (tripSnapshot) in
                         if let tripSnapshot = tripSnapshot.children.allObjects as? [DataSnapshot] {
                             for trip in tripSnapshot {
-                                if trip.childSnapshot(forPath: "driverKey").value as? String == driverKey {
+                                if trip.childSnapshot(forPath: DRIVER_KEY).value as? String == driverKey {
                                     handler(true, driverKey, trip.key)
                                 } else {
                                     return
@@ -89,8 +89,8 @@ class DataService {
             if let tripSnapshot = tripSnapshot.children.allObjects as? [DataSnapshot] {
                 for trip in tripSnapshot {
                     if trip.key == passengerKey {
-                        if trip.childSnapshot(forPath: "tripIsAccepted").value as? Bool == true {
-                            let driverKey = trip.childSnapshot(forPath: "driverKey").value as? String
+                        if trip.childSnapshot(forPath: TRIP_IS_ACCEPTED).value as? Bool == true {
+                            let driverKey = trip.childSnapshot(forPath: DRIVER_KEY).value as? String
                             handler(true, driverKey, trip.key)
                         } else {
                             handler(false, nil, nil)
