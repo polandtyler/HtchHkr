@@ -246,7 +246,6 @@ class HomeVC: UIViewController, Alertable {
                 }
             })
         case .startTrip:
-            print("start trip selected")
             DataService.instance.driverIsOnTrip(driverKey: self.currentUserId, handler: { (isOnTrip, driverKey, tripKey) in
                 if isOnTrip == true {
                     self.removeOverlaysAndAnnotations(forDrivers: false, forPassengers: false)
@@ -282,7 +281,12 @@ class HomeVC: UIViewController, Alertable {
                 }
             })
         case .endTrip:
-            print("Trip ended")
+            DataService.instance.driverIsOnTrip(driverKey: self.currentUserId, handler: { (isOnTrip, driverKey, tripKey) in
+                if isOnTrip == true {
+                    UpdateService.instance.cancelTrip(withPassengerKey: tripKey!, forDriverKey: driverKey!)
+                    self.buttonsForDriver(areHidden: true)
+                }
+            })
         }
     }
 
@@ -433,6 +437,7 @@ extension HomeVC: CLLocationManagerDelegate {
                 } else if region.identifier == "destination" {
                     self.cancelBtn.fadeTo(alphaValue: 0.0, withDuration: 0.2)
                     self.cancelBtn.isHidden = true
+                    self.actionForButton = .endTrip
                     self.actionBtn.setTitle("END TRIP", for: .normal)
                 }
             }
